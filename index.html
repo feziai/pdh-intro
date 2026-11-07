@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="Persian Dark Horse — فضای کاری هوش مصنوعی برای گفتگو، ساخت محتوا و ابزارهای خلاقانه؛ در وب و تلگرام."
+    />
+    <meta property="og:title" content="Persian Dark Horse — AI, without limits" />
+    <meta
+      property="og:description"
+      content="Explore the Persian Dark Horse website and Telegram bot."
+    />
+    <meta property="og:type" content="website" />
+    <title>Persian Dark Horse — هوش مصنوعی، یک‌جا</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, "Segoe UI", Tahoma, Arial, sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        --ink: #f4f8ff;
+        --muted: #a6b4c9;
+        --line: rgba(180, 211, 244, 0.15);
+        --panel: rgba(15, 30, 51, 0.78);
+        --cyan: #65d9ff;
+        --blue: #2379ff;
+        --gold: #d4ad65;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse at 85% 0%, rgba(20, 93, 163, 0.2), transparent 36rem),
+          radial-gradient(ellipse at 8% 46%, rgba(21, 92, 154, 0.12), transparent 32rem),
+          #07111f;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 40px));
+        margin-inline: auto;
+      }
+
+      .topbar {
+        display: flex;
+        min-height: 82px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 1px solid rgba(101, 217, 255, 0.58);
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(72, 160, 255, 0.3), rgba(9, 23, 41, 0.88));
+        box-shadow: 0 0 24px rgba(35, 121, 255, 0.23), inset 0 0 18px rgba(101, 217, 255, 0.1);
+        color: #f7fcff;
+        font-family: Georgia, serif;
+        font-size: 21px;
+        font-weight: 700;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 14px;
+        font-weight: 750;
+        letter-spacing: 0.025em;
+      }
+
+      .brand-caption {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 10px;
+        letter-spacing: 0.15em;
+      }
+
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-link,
+      .language-button {
+        display: inline-flex;
+        min-height: 42px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(11, 25, 43, 0.62);
+        color: var(--ink);
+        font: inherit;
+        font-size: 13px;
+        text-decoration: none;
+        transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+      }
+
+      .nav-link:hover,
+      .language-button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(101, 217, 255, 0.58);
+        background: rgba(24, 54, 86, 0.8);
+      }
+
+      .language-button {
+        min-width: 76px;
+        cursor: pointer;
+      }
+
+      main {
+        padding-block: clamp(38px, 7vw, 82px) 72px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+        align-items: center;
+        gap: clamp(34px, 7vw, 88px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--cyan);
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 23px;
+        height: 1px;
+        background: var(--cyan);
+        content: "";
+      }
+
+      h1 {
+        max-width: 680px;
+        margin: 22px 0 18px;
+        font-size: clamp(38px, 6vw, 68px);
+        font-weight: 780;
+        letter-spacing: -0.045em;
+        line-height: 1.18;
+      }
+
+      .gradient-text {
+        background: linear-gradient(100deg, #f6fbff 8%, #80dcff 55%, #a3baff 100%);
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-copy {
+        max-width: 580px;
+        margin: 0;
+        color: #b4c2d6;
+        font-size: clamp(16px, 1.8vw, 18px);
+        line-height: 1.95;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 52px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 0 20px;
+        border: 1px solid transparent;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: 750;
+        text-decoration: none;
+        transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button-primary {
+        background: linear-gradient(110deg, #1c6cff, #269cf5);
+        box-shadow: 0 10px 30px rgba(26, 106, 255, 0.25);
+        color: #fff;
+      }
+
+      .button-secondary {
+        border-color: rgba(145, 188, 231, 0.3);
+        background: rgba(17, 34, 56, 0.76);
+        color: #f5f9ff;
+      }
+
+      .button-secondary:hover {
+        border-color: rgba(101, 217, 255, 0.64);
+      }
+
+      .arrow {
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      .visual {
+        position: relative;
+        min-height: 390px;
+        overflow: hidden;
+        border: 1px solid rgba(142, 199, 248, 0.22);
+        border-radius: 30px;
+        background:
+          radial-gradient(circle at 50% 45%, rgba(31, 124, 245, 0.24), transparent 43%),
+          linear-gradient(150deg, rgba(20, 44, 72, 0.82), rgba(7, 17, 31, 0.9));
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34), inset 0 0 60px rgba(47, 133, 231, 0.08);
+        isolation: isolate;
+      }
+
+      .visual::before,
+      .visual::after {
+        position: absolute;
+        z-index: -1;
+        border: 1px solid rgba(101, 217, 255, 0.15);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .visual::before {
+        width: 330px;
+        height: 330px;
+        inset-block-start: 30px;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+      }
+
+      .visual::after {
+        width: 250px;
+        height: 250px;
+        inset-block-start: 70px;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+      }
+
+      .visual-glow {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        inset-block-start: 118px;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: rgba(34, 129, 255, 0.18);
+        filter: blur(42px);
+      }
+
+      .emblem {
+        position: absolute;
+        inset-block-start: 112px;
+        inset-inline-start: 50%;
+        display: grid;
+        width: 138px;
+        height: 138px;
+        place-items: center;
+        transform: translateX(-50%);
+        border: 1px solid rgba(174, 223, 255, 0.57);
+        border-radius: 38px;
+        background: linear-gradient(145deg, rgba(93, 173, 255, 0.29), rgba(8, 21, 39, 0.95));
+        box-shadow: 0 0 45px rgba(40, 139, 255, 0.38), inset 0 0 30px rgba(114, 203, 255, 0.13);
+        color: #f2f9ff;
+        font-family: Georgia, serif;
+        font-size: 47px;
+        font-weight: 700;
+        letter-spacing: -0.08em;
+      }
+
+      .emblem::after {
+        position: absolute;
+        inset: 8px;
+        border: 1px solid rgba(209, 235, 255, 0.23);
+        border-radius: 31px;
+        content: "";
+      }
+
+      .visual-label {
+        position: absolute;
+        inset-block-start: 270px;
+        inset-inline: 16px;
+        text-align: center;
+      }
+
+      .visual-label strong {
+        display: block;
+        font-size: 20px;
+        letter-spacing: 0.04em;
+      }
+
+      .visual-label span {
+        display: block;
+        margin-top: 9px;
+        color: #91a8c2;
+        font-size: 10px;
+        letter-spacing: 0.34em;
+      }
+
+      .orbit-chip {
+        position: absolute;
+        display: inline-flex;
+        min-height: 35px;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px;
+        border: 1px solid rgba(153, 204, 250, 0.19);
+        border-radius: 999px;
+        background: rgba(7, 18, 32, 0.78);
+        color: #dcecff;
+        font-size: 11px;
+        backdrop-filter: blur(12px);
+      }
+
+      .orbit-chip::before {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--cyan);
+        box-shadow: 0 0 10px var(--cyan);
+        content: "";
+      }
+
+      .chip-one {
+        inset-block-start: 86px;
+        inset-inline-start: 25px;
+      }
+
+      .chip-two {
+        inset-block-start: 145px;
+        inset-inline-end: 18px;
+      }
+
+      .chip-three {
+        inset-block-end: 76px;
+        inset-inline-start: 42px;
+      }
+
+      .chip-four {
+        inset-block-end: 42px;
+        inset-inline-end: 24px;
+      }
+
+      .section-heading {
+        margin: 0;
+        font-size: clamp(24px, 3.4vw, 34px);
+        letter-spacing: -0.025em;
+      }
+
+      .section-copy {
+        max-width: 640px;
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.9;
+      }
+
+      .features {
+        margin-top: clamp(70px, 10vw, 110px);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 26px;
+      }
+
+      .feature {
+        min-height: 154px;
+        padding: 23px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: linear-gradient(145deg, rgba(20, 39, 64, 0.72), rgba(10, 22, 38, 0.82));
+      }
+
+      .feature-icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 1px solid rgba(101, 217, 255, 0.22);
+        border-radius: 14px;
+        background: rgba(35, 121, 255, 0.11);
+        color: var(--cyan);
+        font-size: 19px;
+      }
+
+      .feature h3 {
+        margin: 19px 0 7px;
+        font-size: 16px;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      .destinations {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: clamp(65px, 9vw, 96px);
+      }
+
+      .destination {
+        display: flex;
+        min-height: 208px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: clamp(22px, 3vw, 32px);
+        border: 1px solid rgba(165, 201, 235, 0.2);
+        border-radius: 24px;
+        background:
+          radial-gradient(circle at 95% 0%, rgba(42, 131, 227, 0.14), transparent 15rem),
+          rgba(12, 26, 45, 0.82);
+      }
+
+      .destination-tag {
+        color: var(--cyan);
+        font-size: 10px;
+        font-weight: 750;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .destination h3 {
+        margin: 14px 0 8px;
+        font-size: 21px;
+      }
+
+      .destination p {
+        max-width: 440px;
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .destination .button {
+        min-height: 45px;
+        margin-top: auto;
+        padding-inline: 16px;
+        border-radius: 13px;
+        font-size: 13px;
+      }
+
+      footer {
+        display: flex;
+        min-height: 76px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 54px;
+        border-top: 1px solid var(--line);
+        color: #91a1b7;
+        font-size: 12px;
+      }
+
+      .footer-brand {
+        color: #dce9f8;
+        font-weight: 700;
+      }
+
+      :focus-visible {
+        outline: 3px solid rgba(101, 217, 255, 0.88);
+        outline-offset: 3px;
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          width: min(100% - 30px, 560px);
+        }
+
+        .topbar {
+          min-height: 72px;
+        }
+
+        .top-actions .nav-link {
+          display: none;
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 38px;
+        }
+
+        .visual {
+          min-height: 360px;
+        }
+
+        .visual::before {
+          width: 300px;
+          height: 300px;
+        }
+
+        .visual::after {
+          width: 230px;
+          height: 230px;
+        }
+
+        .emblem {
+          top: 100px;
+          width: 126px;
+          height: 126px;
+        }
+
+        .visual-label {
+          top: 250px;
+        }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature {
+          min-height: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page {
+          width: calc(100% - 24px);
+        }
+
+        .brand {
+          gap: 9px;
+        }
+
+        .brand-mark {
+          width: 38px;
+          height: 38px;
+        }
+
+        .brand-name {
+          font-size: 12px;
+        }
+
+        .brand-caption {
+          font-size: 9px;
+        }
+
+        .language-button {
+          min-width: 70px;
+          min-height: 40px;
+          padding-inline: 11px;
+        }
+
+        main {
+          padding-top: 38px;
+        }
+
+        h1 {
+          margin-top: 18px;
+          font-size: clamp(36px, 10vw, 48px);
+        }
+
+        .hero-copy {
+          font-size: 15px;
+        }
+
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .visual {
+          min-height: 330px;
+          border-radius: 24px;
+        }
+
+        .visual::before {
+          width: 260px;
+          height: 260px;
+          top: 26px;
+        }
+
+        .visual::after {
+          width: 205px;
+          height: 205px;
+          top: 54px;
+        }
+
+        .emblem {
+          top: 78px;
+          width: 116px;
+          height: 116px;
+          border-radius: 32px;
+          font-size: 39px;
+        }
+
+        .emblem::after {
+          border-radius: 25px;
+        }
+
+        .visual-label {
+          top: 205px;
+        }
+
+        .visual-label strong {
+          font-size: 17px;
+        }
+
+        .chip-one {
+          top: 25px;
+          left: 13px;
+        }
+
+        .chip-two {
+          top: 95px;
+          right: 9px;
+        }
+
+        .chip-three {
+          bottom: 43px;
+          left: 13px;
+        }
+
+        .chip-four {
+          bottom: 16px;
+          right: 10px;
+        }
+
+        .orbit-chip {
+          min-height: 31px;
+          padding-inline: 9px;
+          font-size: 10px;
+        }
+
+        .destinations {
+          grid-template-columns: 1fr;
+        }
+
+        footer {
+          align-items: flex-start;
+          flex-direction: column;
+          justify-content: center;
+          padding-block: 18px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <a class="brand" href="https://persiandarkhorse.com/" aria-label="Persian Dark Horse home">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <span>
+            <span class="brand-name">PERSIAN DARK HORSE</span>
+            <span class="brand-caption">AI · CREATIVE WORKSPACE</span>
+          </span>
+        </a>
+        <nav class="top-actions" aria-label="Main navigation">
+          <a class="nav-link" href="https://persiandarkhorse.com/" target="_blank" rel="noopener noreferrer" data-fa="وب‌سایت" data-en="Website">وب‌سایت</a>
+          <a class="nav-link" href="https://t.me/PdhAi_bot" target="_blank" rel="noopener noreferrer" data-fa="ربات تلگرام" data-en="Telegram bot">ربات تلگرام</a>
+          <button class="language-button" id="language-toggle" type="button" aria-label="Switch language">English</button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="hero-title">
+          <div>
+            <div class="eyebrow" data-fa="فضای کاری هوش مصنوعی" data-en="AI creative workspace">فضای کاری هوش مصنوعی</div>
+            <h1 id="hero-title">
+              <span class="gradient-text" data-fa="ایده‌ها را" data-en="Turn ideas">ایده‌ها را</span>
+              <span data-fa="به واقعیت تبدیل کن" data-en="into reality">به واقعیت تبدیل کن</span>
+            </h1>
+            <p class="hero-copy" data-fa="با Persian Dark Horse گفتگو کن، ایده‌هایت را توسعه بده و ابزارهای هوش مصنوعی را در وب‌سایت یا تلگرام در دسترس داشته باش." data-en="Chat with Persian Dark Horse, develop your ideas, and explore AI tools from the website or Telegram.">
+              با Persian Dark Horse گفتگو کن، ایده‌هایت را توسعه بده و ابزارهای هوش مصنوعی را در وب‌سایت یا تلگرام در دسترس داشته باش.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="https://persiandarkhorse.com/" target="_blank" rel="noopener noreferrer">
+                <span data-fa="ورود به وب‌سایت" data-en="Visit the website">ورود به وب‌سایت</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+              <a class="button button-secondary" href="https://t.me/PdhAi_bot" target="_blank" rel="noopener noreferrer">
+                <span data-fa="شروع در تلگرام" data-en="Start on Telegram">شروع در تلگرام</span>
+                <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="visual" aria-label="Persian Dark Horse AI workspace">
+            <div class="visual-glow" aria-hidden="true"></div>
+            <span class="orbit-chip chip-one" data-fa="گفتگو" data-en="Chat">گفتگو</span>
+            <span class="orbit-chip chip-two" data-fa="تصویر" data-en="Image">تصویر</span>
+            <span class="orbit-chip chip-three" data-fa="ابزارهای هوشمند" data-en="AI tools">ابزارهای هوشمند</span>
+            <span class="orbit-chip chip-four" data-fa="ایده‌پردازی" data-en="Ideas">ایده‌پردازی</span>
+            <div class="emblem" aria-hidden="true">PH</div>
+            <div class="visual-label">
+              <strong>PERSIAN DARK HORSE</strong>
+              <span>AI · VIDEO · CREATIVE</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="features" aria-labelledby="features-title">
+          <div class="eyebrow" data-fa="یک مسیر ساده برای شروع" data-en="A simple place to start">یک مسیر ساده برای شروع</div>
+          <h2 class="section-heading" id="features-title" data-fa="از گفتگو شروع کن؛ به ساختن برس" data-en="Start with a conversation. Keep creating.">از گفتگو شروع کن؛ به ساختن برس</h2>
+          <p class="section-copy" data-fa="یک معرفی روشن از راه‌های دسترسی به Persian Dark Horse؛ تجربهٔ کامل سرویس از طریق وب‌سایت و ربات تلگرام ارائه می‌شود." data-en="A clear starting point for Persian Dark Horse. The full service experience is provided through the website and Telegram bot.">
+            یک معرفی روشن از راه‌های دسترسی به Persian Dark Horse؛ تجربهٔ کامل سرویس از طریق وب‌سایت و ربات تلگرام ارائه می‌شود.
+          </p>
+          <div class="feature-grid">
+            <article class="feature">
+              <span class="feature-icon" aria-hidden="true">✦</span>
+              <h3 data-fa="گفتگو و ایده‌پردازی" data-en="Chat and brainstorm">گفتگو و ایده‌پردازی</h3>
+              <p data-fa="برای پرسش‌ها، نوشتن و پرورش ایده‌ها از فضای گفتگو استفاده کن." data-en="Use the chat workspace to ask questions, write, and develop ideas.">برای پرسش‌ها، نوشتن و پرورش ایده‌ها از فضای گفتگو استفاده کن.</p>
+            </article>
+            <article class="feature">
+              <span class="feature-icon" aria-hidden="true">◇</span>
+              <h3 data-fa="ابزارهای خلاقانه" data-en="Creative tools">ابزارهای خلاقانه</h3>
+              <p data-fa="ابزارهای وب را برای ساخت و کارهای خلاقانه بررسی کن." data-en="Explore web tools for creative work and making.">ابزارهای وب را برای ساخت و کارهای خلاقانه بررسی کن.</p>
+            </article>
+            <article class="feature">
+              <span class="feature-icon" aria-hidden="true">↗</span>
+              <h3 data-fa="شروع از تلگرام" data-en="Start on Telegram">شروع از تلگرام</h3>
+              <p data-fa="برای گفتگو در یک چت معمولی، ربات Persian Dark Horse را باز کن." data-en="Open the Persian Dark Horse bot for a familiar, direct chat.">برای گفتگو در یک چت معمولی، ربات Persian Dark Horse را باز کن.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="destinations" aria-label="Choose where to continue">
+          <article class="destination">
+            <span class="destination-tag" data-fa="فضای کاری وب" data-en="Web workspace">فضای کاری وب</span>
+            <h3 data-fa="وب‌سایت Persian Dark Horse" data-en="Persian Dark Horse website">وب‌سایت Persian Dark Horse</h3>
+            <p data-fa="به فضای کاری وب برو و بخش‌های در دسترس را در مرورگر باز کن." data-en="Open the web workspace and explore the available features in your browser.">به فضای کاری وب برو و بخش‌های در دسترس را در مرورگر باز کن.</p>
+            <a class="button button-primary" href="https://persiandarkhorse.com/" target="_blank" rel="noopener noreferrer">
+              <span data-fa="رفتن به وب‌سایت" data-en="Open website">رفتن به وب‌سایت</span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </article>
+          <article class="destination">
+            <span class="destination-tag" data-fa="گفتگوی تلگرام" data-en="Telegram chat">گفتگوی تلگرام</span>
+            <h3 data-fa="ربات Persian Dark Horse" data-en="Persian Dark Horse bot">ربات Persian Dark Horse</h3>
+            <p data-fa="چت ربات را در تلگرام باز کن و برای شروع، زبانت را انتخاب کن." data-en="Open the bot chat in Telegram and choose your language to get started.">چت ربات را در تلگرام باز کن و برای شروع، زبانت را انتخاب کن.</p>
+            <a class="button button-secondary" href="https://t.me/PdhAi_bot" target="_blank" rel="noopener noreferrer">
+              <span data-fa="باز کردن ربات" data-en="Open the bot">باز کردن ربات</span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <span class="footer-brand">PERSIAN DARK HORSE</span>
+        <span data-fa="یک نقطهٔ شروع برای وب و تلگرام" data-en="One starting point for web and Telegram">یک نقطهٔ شروع برای وب و تلگرام</span>
+      </footer>
+    </div>
+
+    <script>
+      const toggle = document.getElementById("language-toggle");
+      let language = "fa";
+
+      function setLanguage(nextLanguage) {
+        language = nextLanguage;
+        document.documentElement.lang = language;
+        document.documentElement.dir = language === "fa" ? "rtl" : "ltr";
+        document.title = language === "fa"
+          ? "Persian Dark Horse — هوش مصنوعی، یک‌جا"
+          : "Persian Dark Horse — AI, without limits";
+
+        document.querySelectorAll("[data-fa][data-en]").forEach((element) => {
+          element.textContent = element.dataset[language];
+        });
+
+        toggle.textContent = language === "fa" ? "English" : "فارسی";
+        toggle.setAttribute(
+          "aria-label",
+          language === "fa" ? "Switch to English" : "تغییر زبان به فارسی",
+        );
+      }
+
+      toggle.addEventListener("click", () => setLanguage(language === "fa" ? "en" : "fa"));
+    </script>
+  </body>
+</html>
